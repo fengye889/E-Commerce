@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="SeckillService" />
+        <module name="GetWay" />
+        <module name="UserService" />
+        <module name="ProductService" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="E-Commerce2" target="17" />
+      <module name="UserService1" target="17" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="E-Commerce" options="" />
+      <module name="E-Commerce2" options="-parameters" />
+      <module name="GetWay" options="-parameters" />
+      <module name="ProductService" options="-parameters" />
+      <module name="SeckillService" options="-parameters" />
+      <module name="UserService" options="-parameters" />
+      <module name="UserService1" options="-parameters" />
+    </option>
+  </component>
+</project>
