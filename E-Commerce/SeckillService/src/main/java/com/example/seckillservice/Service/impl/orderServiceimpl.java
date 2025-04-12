@@ -48,6 +48,7 @@ public class orderServiceimpl implements orderService {
     //定时进行库存预热
     @Scheduled(cron = "0 0/10 * * * ?")
     public  void initStock(){
+        log.info("Stock Init Success !");
         List<Product> products = productClient.getAllProducts();
         for(Product product: products){
             String productKey ="stock_count:"+product.getId();
@@ -61,7 +62,7 @@ public class orderServiceimpl implements orderService {
         //使用分布式锁来进行库存预减
         if(redisLock.tryLock(LOCK_KEY,lockValue,LOCK_TIMEOUT)){
             try {
-                if(redisTemplate.hasKey(orderDto.getUserId()+":"+orderDto.getProductId())){
+                if(Boolean.TRUE.equals(redisTemplate.hasKey(orderDto.getUserId() + ":" + orderDto.getProductId()))){
                     result.setCode("0");
                     return result;
                 }

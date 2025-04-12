@@ -6,6 +6,8 @@ import com.example.userservice.Entity.Vo.userLoginVo;
 import com.example.userservice.Entity.Vo.userRegisterVo;
 import com.example.userservice.mapper.UserMapper;
 import com.example.userservice.service.userService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,12 +23,12 @@ public class userController {
     @Autowired
     UserMapper userMapper;
     @PostMapping("/login")
-    public userLoginVo Login(@RequestBody userLoginDto userLoginDto){
-        return userService.Login(userLoginDto);
+    public userLoginVo Login(@RequestBody userLoginDto userLoginDto, HttpServletResponse response){
+        return userService.login(userLoginDto,response);
     }
     @PostMapping("/register")
     public userRegisterVo register(@RequestBody userLoginDto userLoginDto ){
-         return userService.Register(userLoginDto);
+         return userService.register(userLoginDto);
     }
     @GetMapping("/{id}")
     public User selectById(@PathVariable("id") Long id){

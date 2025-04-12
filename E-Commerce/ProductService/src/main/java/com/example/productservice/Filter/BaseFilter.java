@@ -23,7 +23,6 @@ public class BaseFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest)servletRequest;
         // 获取请求头中的 "user-info" 值
         String userInfo = request.getHeader("user-info");
-        log.info("s");
         if(userInfo != null){
             filterChain.doFilter(servletRequest, servletResponse);
         }

@@ -3,6 +3,8 @@ package com.example.userservice.service;
 import com.example.userservice.Entity.Dto.userLoginDto;
 import com.example.userservice.Entity.Vo.userLoginVo;
 import com.example.userservice.Entity.Vo.userRegisterVo;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 /**
  * @Author: LH
@@ -10,7 +12,7 @@ import com.example.userservice.Entity.Vo.userRegisterVo;
  */
 public interface userService  {
 
-    userLoginVo Login(userLoginDto userLoginDto);
+    userLoginVo login(userLoginDto userLoginDto, HttpServletResponse response);
 
-    userRegisterVo Register(userLoginDto userLoginDto);
+    userRegisterVo register(userLoginDto userLoginDto);
 }

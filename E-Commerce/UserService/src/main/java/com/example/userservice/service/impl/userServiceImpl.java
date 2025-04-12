@@ -9,6 +9,10 @@ import com.example.userservice.mapper.UserMapper;
 import com.example.userservice.service.userService;
 import com.example.userservice.utils.jwtUtils;
 import com.example.userservice.utils.md5;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -25,7 +29,7 @@ public class userServiceImpl  implements userService {
       @Autowired
       UserMapper userMapper;
     @Override
-    public userLoginVo Login(userLoginDto userLoginDto) {
+    public userLoginVo login(userLoginDto userLoginDto, HttpServletResponse response) {
         userLoginVo userLoginVo =new userLoginVo();
         Map<String, Object> claims = new HashMap<>();
         String phone =userLoginDto.getPhone();
@@ -51,11 +55,18 @@ public class userServiceImpl  implements userService {
         userLoginVo.setMsg("登入成功");
         userLoginVo.setUserId(user.getUserId());
         userLoginVo.setPhone(user.getPhone());
-        userLoginVo.setToken(jwtUtils.generateJWT(claims));
+        //将token存储到Cookie中，防止直接暴露给前端
+        String token = jwtUtils.generateJWT(claims);
+        Cookie cookie = new Cookie("token", token);
+        cookie.setHttpOnly(true);  // 防止通过 JavaScript 访问
+        cookie.setSecure(true);    // 仅通过 HTTPS 发送
+        cookie.setPath("/");       // 设置 Cookie 可用于所有路径
+        cookie.setMaxAge(3600);    // 设置过期时间，单位为秒
+        response.addCookie(cookie);
         return userLoginVo;
     }
     @Override
-    public userRegisterVo Register(userLoginDto userLoginDto) {
+    public userRegisterVo register(userLoginDto userLoginDto) {
         userRegisterVo userRegisterVo = new userRegisterVo();
         LambdaQueryWrapper<User> wrapper = new LambdaQueryWrapper<>();
         wrapper.eq(User::getPhone,userLoginDto.getPhone());

@@ -12,5 +12,4 @@ public class userLoginVo {
     private  String msg;
     private  int userId;
     private  String phone;
-    private  String token;
 }
